@@ -25,7 +25,14 @@ namespace Api.Controllers
             return Ok(values);
         }
 
-        [HttpPost]
+		[HttpGet("{id}")]
+		public IActionResult GetById(int id)
+		{
+			var value = _service.TGetById(id);
+			return Ok(value);
+		}
+
+		[HttpPost]
         public IActionResult Create(CreateCategoryDto CategoryDto)
         {
             var Category = _mapper.Map<Category>(CategoryDto);

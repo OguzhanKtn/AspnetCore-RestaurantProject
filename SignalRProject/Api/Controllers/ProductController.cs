@@ -26,7 +26,14 @@ namespace Api.Controllers
             return Ok(values);
         }
 
-        [HttpGet("ProductListWithCategory")]
+		[HttpGet("{id}")]
+		public IActionResult GetById(int id)
+		{
+			var value = _service.TGetById(id);
+			return Ok(value);
+		}
+
+		[HttpGet("ProductListWithCategory")]
         public IActionResult ListWithCategory() 
         {
             var values = _mapper.Map<List<ResultProductWithCategory>>(_service.GetProductsWithCategories());

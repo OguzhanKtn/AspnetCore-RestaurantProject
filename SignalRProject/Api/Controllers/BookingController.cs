@@ -25,8 +25,14 @@ namespace Api.Controllers
             var values = _service.TGetAll();
             return Ok(values);
         }
+		[HttpGet("{id}")]
+		public IActionResult GetById(int id)
+		{
+			var values = _service.TGetById(id);
+			return Ok(values);
+		}
 
-        [HttpPost]
+		[HttpPost]
         public IActionResult Create(CreateBookingDto BookingDto)
         {
             var Booking = _mapper.Map<Booking>(BookingDto);

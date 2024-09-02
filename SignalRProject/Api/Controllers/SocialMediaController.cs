@@ -26,7 +26,15 @@ namespace Api.Controllers
             return Ok(values);
         }
 
-        [HttpPost]
+
+		[HttpGet("{id}")]
+		public IActionResult List(int id)
+		{
+			var values = _service.TGetById(id);
+			return Ok(values);
+		}
+
+		[HttpPost]
         public IActionResult Create(CreateSocialMediaDto SocialMediaDto)
         {
             var SocialMedia = _mapper.Map<SocialMedia>(SocialMediaDto);
