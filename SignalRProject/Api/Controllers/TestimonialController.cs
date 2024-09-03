@@ -25,8 +25,14 @@ namespace Api.Controllers
             var values = _service.TGetAll();
             return Ok(values);
         }
+		[HttpGet("{id}")]
+		public IActionResult List(int id)
+		{
+			var values = _service.TGetById(id);
+			return Ok(values);
+		}
 
-        [HttpPost]
+		[HttpPost]
         public IActionResult Create(CreateTestimonialDto TestimonialDto)
         {
             var Testimonial = _mapper.Map<Testimonial>(TestimonialDto);

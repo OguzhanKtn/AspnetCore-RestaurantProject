@@ -1,0 +1,53 @@
+﻿@model UpdateFeatureDto
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Forms</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<form method="post">
+					<div class="card">
+						<div class="card-header">
+							<div class="card-title">Feature Update</div>
+						</div>
+						<div class="card-body">
+							<div class="form-group">
+								<label>Title-1</label>
+								<input type="text" asp-for="Title1" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>Decription-1</label>
+								<input type="text" asp-for="Description1" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>Title-2</label>
+								<input type="text" asp-for="Title2" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>Decription-2</label>
+								<input type="text" asp-for="Description2" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>Title-3</label>
+								<input type="text" asp-for="Title3" class="form-control">
+							</div>
+							<div class="form-group">
+								<label>Decription-3</label>
+								<input type="text" asp-for="Description3" class="form-control">
+							</div>
+						</div>
+						<div class="card-action">
+							<button class="btn btn-primary">Update</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+

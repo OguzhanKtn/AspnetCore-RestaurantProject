@@ -1,4 +1,4 @@
-﻿@model CreateBookingDto
+﻿@model CreateTestimonialDto
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/AdminLayout/Index.cshtml";
@@ -12,28 +12,24 @@
 				<form method="post">
 					<div class="card">
 						<div class="card-header">
-							<div class="card-title">Booking Add</div>
+							<div class="card-title">Testimonial Add</div>
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-								<label>Person Name</label>
-								<input type="text" asp-for="Name" class="form-control">
+								<label for="categoryname">Person Name</label>
+								<input type="text" asp-for="Name" class="form-control" id="categoryname">
 							</div>
 							<div class="form-group">
-								<label>Phone</label>
-								<input type="text" asp-for="Phone" class="form-control">
+								<label for="categoryname">Title</label>
+								<input type="text" asp-for="Title" class="form-control" id="categoryname">
 							</div>
 							<div class="form-group">
-								<label>Mail</label>
-								<input type="text" asp-for="Mail" class="form-control">
+								<label for="categoryname">Comment</label>
+								<input type="text" asp-for="Comment" class="form-control" id="categoryname">
 							</div>
 							<div class="form-group">
-								<label>Person Count</label>
-								<input type="number" asp-for="PersonCount" class="form-control">
-							</div>
-							<div class="form-group">
-								<label>Date</label>
-								<input type="date" asp-for="Date" class="form-control">
+								<label for="categoryname">Image Url</label>
+								<input type="text" asp-for="ImageUrl" class="form-control" id="categoryname">
 							</div>
 						</div>
 						<div class="card-action">

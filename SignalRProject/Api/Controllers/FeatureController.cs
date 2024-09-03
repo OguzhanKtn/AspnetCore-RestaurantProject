@@ -24,8 +24,13 @@ namespace Api.Controllers
             var values = _service.TGetAll();
             return Ok(values);
         }
-
-        [HttpPost]
+		[HttpGet("{id}")]
+		public IActionResult List(int id)
+		{
+			var values = _service.TGetById(id);
+			return Ok(values);
+		}
+		[HttpPost]
         public IActionResult Create(CreateFeatureDto FeatureDto)
         {
             var Feature = _mapper.Map<Feature>(FeatureDto);

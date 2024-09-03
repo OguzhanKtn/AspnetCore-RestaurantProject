@@ -1,4 +1,4 @@
-﻿@model CreateBookingDto
+﻿@model CreateContactDto
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/AdminLayout/Index.cshtml";
@@ -12,12 +12,12 @@
 				<form method="post">
 					<div class="card">
 						<div class="card-header">
-							<div class="card-title">Booking Add</div>
+							<div class="card-title">Contact Add</div>
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-								<label>Person Name</label>
-								<input type="text" asp-for="Name" class="form-control">
+								<label>Location</label>
+								<input type="text" asp-for="Location" class="form-control">
 							</div>
 							<div class="form-group">
 								<label>Phone</label>
@@ -25,15 +25,11 @@
 							</div>
 							<div class="form-group">
 								<label>Mail</label>
-								<input type="text" asp-for="Mail" class="form-control">
+								<input type="email" asp-for="Mail" class="form-control">
 							</div>
 							<div class="form-group">
-								<label>Person Count</label>
-								<input type="number" asp-for="PersonCount" class="form-control">
-							</div>
-							<div class="form-group">
-								<label>Date</label>
-								<input type="date" asp-for="Date" class="form-control">
+								<label>Footer Description</label>
+								<input type="text" asp-for="FooterDescription" class="form-control">
 							</div>
 						</div>
 						<div class="card-action">

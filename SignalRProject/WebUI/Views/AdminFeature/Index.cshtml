@@ -1,0 +1,62 @@
+﻿@model List<ResultFeatureDto>
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/AdminLayout/Index.cshtml";
+	int count = 0;
+}
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Tables</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Feature List</div>
+					</div>
+					<div class="card-body">
+						<div class="card-sub">
+							You can perform feature-related operations below.
+						</div>
+						<table class="table mt-3">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Title 1</th>
+									<th scope="col">Description 1</th>
+									<th scope="col">Title 2</th>
+									<th scope="col">Description 2</th>
+									<th scope="col">Title 3</th>
+									<th scope="col">Description 3</th>
+									<th scope="col">Delete</th>
+									<th scope="col">Update</th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach (var item in Model)
+								{
+									count++;
+									<tr>
+										<td>@count</td>
+										<td>@item.Title1</td>
+										<td>@item.Description1</td>
+										<td>@item.Title2</td>
+										<td>@item.Description2</td>
+										<td>@item.Title3</td>
+										<td>@item.Description3</td>
+										<td><a href="/AdminFeature/Delete/@item.Id" class="btn btn-outline-danger">Delete</a></td>
+										<td><a href="/AdminFeature/Update/@item.Id" class="btn btn-outline-success">Update</a></td>
+									</tr>
+								}
+							</tbody>
+						</table>
+						<a href="/AdminFeature/Create" class="btn btn-outline-primary">Add Feature</a>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
