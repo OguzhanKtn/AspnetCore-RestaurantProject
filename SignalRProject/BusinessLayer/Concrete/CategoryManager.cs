@@ -13,6 +13,11 @@ namespace BusinessLayer.Concrete
             _categoryDal = categoryDal;
         }
 
+        public int GetCategoryCount()
+        {
+           return _categoryDal.GetCategoryCount();
+        }
+
         public void TAdd(Category entity)
         {
             _categoryDal.Add(entity);
