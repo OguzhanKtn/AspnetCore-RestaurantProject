@@ -41,6 +41,12 @@ namespace Api
             services.AddScoped<ITestimonialService, TestimonialManager>();
             services.AddScoped<ITestimonialDal, EfTestimonialDal>();
 
+            services.AddScoped<IOrderService, OrderManager>();
+            services.AddScoped<IOrderDal, EfOrderDal>();
+
+            services.AddScoped<IOrderDetailService,OrderDetailManager>();
+            services.AddScoped<IOrderDetailDal, EfOrderDetailDal>();
+
             return services;
         }
     }

@@ -7,10 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Abstract
 {
-    public interface ICategoryService : IGenericService<Category>
+    public interface IOrderDetailService : IGenericService<OrderDetail>
     {
-        int GetCategoryCount();
-        int ActiveCategoryCount();
-        int PassiveCategoryCount();
     }
 }

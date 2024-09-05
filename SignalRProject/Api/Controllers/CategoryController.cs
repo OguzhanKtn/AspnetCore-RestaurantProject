@@ -31,8 +31,20 @@ namespace Api.Controllers
             var categoryCount = _service.GetCategoryCount();
             return Ok(categoryCount);
         }
+        [HttpGet("ActiveCategoryCount")]
+        public IActionResult GetActiveCategoryCount()
+        {
+            var categoryCount = _service.ActiveCategoryCount();
+            return Ok(categoryCount);
+        }
+        [HttpGet("PassiveCategoryCount")]
+        public IActionResult GetPassiveCategoryCount()
+        {
+            var categoryCount = _service.PassiveCategoryCount();
+            return Ok(categoryCount);
+        }
 
-		[HttpGet("{id}")]
+        [HttpGet("{id}")]
 		public IActionResult GetById(int id)
 		{
 			var value = _service.TGetById(id);

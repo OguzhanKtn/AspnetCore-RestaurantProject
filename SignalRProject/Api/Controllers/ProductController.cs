@@ -39,6 +39,52 @@ namespace Api.Controllers
             var values = _mapper.Map<List<ResultProductWithCategory>>(_service.GetProductsWithCategories());
             return Ok(values);
         }
+        [HttpGet("ProductCount")]
+        public IActionResult GetCategoryCount()
+        {
+            var productCount = _service.GetProductCount();
+            return Ok(productCount);
+        }
+        [HttpGet("TotalPriceByDrinkCategory")]
+        public IActionResult TotalPriceByDrinkCategory()
+        {
+            return Ok(_service.TTotalPriceByDrinkCategory());
+        }
+        [HttpGet("TotalPriceBySaladCategory")]
+        public IActionResult TotalPriceBySaladCategory()
+        {
+            return Ok(_service.TTotalPriceBySaladCategory());
+        }
+        [HttpGet("ProductNameByMaxPrice")]
+        public IActionResult ProductNameByMaxPrice()
+        {
+            return Ok(_service.TProductNameByMaxPrice());
+        }
+        [HttpGet("ProductAvgPriceByHamburger")]
+        public IActionResult ProductAvgPriceByHamburger()
+        {
+            return Ok(_service.TProductAvgPriceByHamburger());
+        }
+        [HttpGet("ProductCountByHamburger")]
+        public IActionResult ProductCountByHamburger()
+        {
+            return Ok(_service.TProductCountByCategoryNameHamburger());
+        }
+        [HttpGet("ProductCountByDrink")]
+        public IActionResult ProductCountByDrink()
+        {
+            return Ok(_service.TProductCountByCategoryNameDrink());
+        }
+        [HttpGet("ProductPriceAvg")]
+        public IActionResult ProductPriceAvg()
+        {
+            return Ok(_service.TProductPriceAvg());
+        }
+        [HttpGet("ProductPriceBySteakBurger")]
+        public IActionResult ProductPriceBySteakBurger()
+        {
+            return Ok(_service.TProductPriceBySteakBurger());
+        }
 
         [HttpPost]
         public IActionResult Create(CreateProductDto ProductDto)
