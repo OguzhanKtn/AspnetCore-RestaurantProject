@@ -3,8 +3,75 @@
     Layout = "~/Views/AdminLayout/Index.cshtml";
 }
 
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+
 <div class="content">
     <div class="container-fluid">
+        <script type="text/javascript">
+            $(document).ready(() => {
+                var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44302/SignalRHub").build();
+                $("#connstatus").text(connection.state);
+                connection.start().then(() => {
+                    $("#connstatus").text(connection.state);
+                    setInterval(() => {
+                        connection.invoke("SendStatistic");
+                    }, 1000)
+                }).catch((err) => { console.log(err) });
+           
+                connection.on("ReceiveCategoryCount", (value) => {
+                    $("#categorycount").text(value);
+                })
+                connection.on("ReceiveProductCount", (value) => {
+                    $("#productcount").text(value);
+                })
+                connection.on("ActiveCategoryCount", (value) => {
+                    $("#activecount").text(value);
+                })
+                connection.on("PassiveCategoryCount", (value) => {
+                    $("#passivecount").text(value);
+                })
+                connection.on("TotalHamburgerCount", (value) => {
+                    $("#totalhamburgercount").text(value);
+                })
+                connection.on("TotalBeverageCount", (value) => {
+                    $("#totalbeveragecount").text(value);
+                })
+                connection.on("ProductPriceAvg", (value) => {
+                    $("#productpriceavg").text(value);
+                })
+                connection.on("ProductNameByMaxPrice", (value) => {
+                    $("#productnamebymaxprice").text(value);
+                })
+                connection.on("ProductNameByMinPrice", (value) => {
+                    $("#productnamebyminprice").text(value);
+                })
+                connection.on("AvgPriceByHamburger", (value) => {
+                    $("#avgpricebyhamburger").text(value);
+                })
+                connection.on("OrdersCount", (value) => {
+                    $("#orderscount").text(value);
+                })
+                connection.on("ActiveOrdersCount", (value) => {
+                    $("#activeorderscount").text(value);
+                })
+                connection.on("TodayTotalPrice", (value) => {
+                    $("#todaytotalprice").text(value);
+                })
+                connection.on("LastOrderPrice", (value) => {
+                    $("#lastorderprice").text(value);
+                })
+                connection.on("TotalMoneyCaseAmount", (value) => {
+                    $("#totalmoneycaseamount").text(value);
+                })
+                connection.on("TableCount", (value) => {
+                    $("#tablecount").text(value);
+                })
+            })
+        </script>
         <h4 class="page-title">Dashboard</h4>
         <div class="row">
             <div class="col-md-3">
@@ -18,8 +85,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Visitors</p>
-                                    <h4 class="card-title">1,294</h4>
+                                    <p class="card-category">Category Count</p>
+                                    <h4 class="card-title" id="categorycount"></h4>
                                 </div>
                             </div>
                         </div>
@@ -37,8 +104,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Sales</p>
-                                    <h4 class="card-title">$ 1,345</h4>
+                                    <p class="card-category">Product Count</p>
+                                    <h4 class="card-title" id="productcount"></h4>
                                 </div>
                             </div>
                         </div>
@@ -56,8 +123,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Subscribers</p>
-                                    <h4 class="card-title">1303</h4>
+                                    <p class="card-category">Active Category Count</p>
+                                    <h4 class="card-title" id="activecount"></h4>
                                 </div>
                             </div>
                         </div>
@@ -75,8 +142,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Order</p>
-                                    <h4 class="card-title">576</h4>
+                                    <p class="card-category">Passive Category Count</p>
+                                    <h4 class="card-title" id="passivecount"></h4>
                                 </div>
                             </div>
                         </div>
@@ -96,8 +163,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Visitors</p>
-                                    <h4 class="card-title">1,294</h4>
+                                    <p class="card-category">Total Hamburger Count</p>
+                                    <h4 class="card-title" id="totalhamburgercount"></h4>
                                 </div>
                             </div>
                         </div>
@@ -115,8 +182,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Sales</p>
-                                    <h4 class="card-title">$ 1,345</h4>
+                                    <p class="card-category">Total Beverage Count</p>
+                                    <h4 class="card-title" id="totalbeveragecount"></h4>
                                 </div>
                             </div>
                         </div>
@@ -134,8 +201,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Subscribers</p>
-                                    <h4 class="card-title">1303</h4>
+                                    <p class="card-category">Product Price Avg</p>
+                                    <h4 class="card-title" id="productpriceavg"></h4>
                                 </div>
                             </div>
                         </div>
@@ -153,8 +220,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Order</p>
-                                    <h4 class="card-title">576</h4>
+                                    <p class="card-category">ProductByMaxPrice</p>
+                                    <h4 class="card-title" id="productnamebymaxprice"></h4>
                                 </div>
                             </div>
                         </div>
@@ -174,8 +241,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Visitors</p>
-                                    <h4 class="card-title">1,294</h4>
+                                    <p class="card-category">ProductByMinPrice</p>
+                                    <h4 class="card-title" id="productnamebyminprice"></h4>
                                 </div>
                             </div>
                         </div>
@@ -193,8 +260,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Sales</p>
-                                    <h4 class="card-title">$ 1,345</h4>
+                                    <p class="card-category">AvgPriceByHamburger</p>
+                                    <h4 class="card-title" id="avgpricebyhamburger"></h4>
                                 </div>
                             </div>
                         </div>
@@ -212,8 +279,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Subscribers</p>
-                                    <h4 class="card-title">1303</h4>
+                                    <p class="card-category">Order Count</p>
+                                    <h4 class="card-title" id="orderscount"></h4>
                                 </div>
                             </div>
                         </div>
@@ -231,8 +298,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Order</p>
-                                    <h4 class="card-title">576</h4>
+                                    <p class="card-category">ActiveOrderCount</p>
+                                    <h4 class="card-title" id="activeorderscount"></h4>
                                 </div>
                             </div>
                         </div>
@@ -252,8 +319,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Visitors</p>
-                                    <h4 class="card-title">1,294</h4>
+                                    <p class="card-category">TodayTotalPrice</p>
+                                    <h4 class="card-title" id="todaytotalprice"></h4>
                                 </div>
                             </div>
                         </div>
@@ -271,8 +338,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Sales</p>
-                                    <h4 class="card-title">$ 1,345</h4>
+                                    <p class="card-category">LastOrderPrice</p>
+                                    <h4 class="card-title" id="lastorderprice"></h4>
                                 </div>
                             </div>
                         </div>
@@ -290,8 +357,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Subscribers</p>
-                                    <h4 class="card-title">1303</h4>
+                                    <p class="card-category">TotalMoneyCaseAmount</p>
+                                    <h4 class="card-title" id="totalmoneycaseamount"></h4>
                                 </div>
                             </div>
                         </div>
@@ -309,8 +376,8 @@
                             </div>
                             <div class="col-7 d-flex align-items-center">
                                 <div class="numbers">
-                                    <p class="card-category">Order</p>
-                                    <h4 class="card-title">576</h4>
+                                    <p class="card-category">Table Count</p>
+                                    <h4 class="card-title" id="tablecount"></h4>
                                 </div>
                             </div>
                         </div>

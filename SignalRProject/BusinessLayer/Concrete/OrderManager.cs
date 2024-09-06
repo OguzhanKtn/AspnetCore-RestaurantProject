@@ -18,6 +18,11 @@ namespace BusinessLayer.Concrete
             _orderDal = orderDal;
         }
 
+        public decimal LastOrderPrice()
+        {
+            return _orderDal.LastOrderPrice();
+        }
+
         public int TActiveOrderCount()
         {
             return _orderDal.ActiveOrderCount();
@@ -41,6 +46,11 @@ namespace BusinessLayer.Concrete
         public Order TGetById(int id)
         {
             return _orderDal.GetById(id);
+        }
+
+        public decimal TodayTotalPrice()
+        {
+            return _orderDal.TodayTotalPrice();
         }
 
         public int TPassiveOrderCount()

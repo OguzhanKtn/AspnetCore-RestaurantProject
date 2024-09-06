@@ -22,10 +22,22 @@ namespace DataAccessLayer.EntityFramework
             return context.Orders.Count();
         }
 
+        public decimal LastOrderPrice()
+        {
+            using var context = new SignalRContext();
+            return context.Orders.OrderByDescending(x => x.Id).Take(1).Select(y => y.TotalPrice).FirstOrDefault();
+        }
+
         public int PassiveOrderCount()
         {
             using var context = new SignalRContext();
             return context.Orders.Where(x => x.Status == false).Count();
+        }
+
+        public decimal TodayTotalPrice()
+        {
+            using var context = new SignalRContext();
+            return context.Orders.Where(x => x.Date == DateTime.Today).Sum(y => y.TotalPrice);
         }
 
         public int TotalCount()

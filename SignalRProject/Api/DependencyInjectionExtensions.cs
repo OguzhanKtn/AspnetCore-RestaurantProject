@@ -47,6 +47,12 @@ namespace Api
             services.AddScoped<IOrderDetailService,OrderDetailManager>();
             services.AddScoped<IOrderDetailDal, EfOrderDetailDal>();
 
+            services.AddScoped<IMoneyCaseService, MoneyCaseManager>();
+            services.AddScoped<IMoneyCaseDal, EfMoneyCaseDal>();
+
+            services.AddScoped<ITableService, TableManager>();
+            services.AddScoped<ITableDal, EfTableDal>();
+
             return services;
         }
     }

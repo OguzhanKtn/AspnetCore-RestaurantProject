@@ -12,5 +12,7 @@ namespace DataAccessLayer.Abstract
         int TotalCount();
         int ActiveOrderCount();
         int PassiveOrderCount();
+        decimal LastOrderPrice();
+        decimal TodayTotalPrice();
     }
 }

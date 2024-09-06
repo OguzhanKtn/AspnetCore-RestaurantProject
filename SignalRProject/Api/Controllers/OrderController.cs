@@ -38,6 +38,12 @@ namespace Api.Controllers
             var values = _service.TTotalCount();
             return Ok(values);
         }
+        [HttpGet("TodayTotalPrice")]
+        public IActionResult TodayTotalPrice()
+        {
+            var values = _service.TodayTotalPrice();
+            return Ok(values);
+        }
         [HttpGet("ActiveOrdersCount")]
         public IActionResult ActiveOrdersCount()
         {
