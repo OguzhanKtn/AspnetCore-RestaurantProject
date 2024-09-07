@@ -70,5 +70,17 @@ namespace Api.Hubs
             var value16 = _tableService.TableCount();
             await Clients.All.SendAsync("TableCount", value16);
         }
+
+        public async Task SendProgress()
+        {
+            var value = _moneyCaseService.TTotalMoneyCaseAmount();
+            await Clients.All.SendAsync("TotalMoneyCaseAmount", value.ToString("0.00") + "₺");
+
+            var value2 = _orderService.TActiveOrderCount();
+            await Clients.All.SendAsync("ActiveOrderCount", value2);
+
+            var value3 = _tableService.TableCount();
+            await Clients.All.SendAsync("TableCount", value3);
+        }
     }
 }

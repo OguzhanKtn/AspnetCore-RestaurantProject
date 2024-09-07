@@ -53,6 +53,9 @@ namespace Api
             services.AddScoped<ITableService, TableManager>();
             services.AddScoped<ITableDal, EfTableDal>();
 
+            services.AddScoped<ISliderService, SliderManager>();
+            services.AddScoped<ISliderDal, EfSliderDal>();
+
             return services;
         }
     }
