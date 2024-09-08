@@ -1,27 +1,27 @@
-﻿using DtoLayer.AboutDto;
+﻿using DtoLayer.ProductDto;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace WebUI.ViewComponents.DefaultComponents
+namespace WebUI.Controllers
 {
-    public class _DefaultAboutComponentPartial : ViewComponent
+    public class MenuController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public _DefaultAboutComponentPartial(IHttpClientFactory httpClientFactory)
+        public MenuController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://localhost:44302/api/About");
+            var response = await client.GetAsync("https://localhost:44302/api/Product");
 
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultAboutDto>>(jsonData);
+                var values = JsonConvert.DeserializeObject<List<ResultProductDto>>(jsonData);
                 return View(values);
             }
             return View();
