@@ -10,6 +10,6 @@ namespace BusinessLayer.Abstract
 {
     public interface IBasketService:IGenericService<Basket>
     {
-        List<Basket> GetBasketByTableNumber(int id);
+        List<ResultBasketDto> GetBasketByTableNumber(int id);
     }
 }

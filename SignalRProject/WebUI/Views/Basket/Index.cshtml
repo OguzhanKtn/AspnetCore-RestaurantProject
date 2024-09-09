@@ -42,12 +42,12 @@
                     <tbody class="align-middle">
                         @foreach (var item in Model)
                         {
-                            basketTotalPrice = Model.Sum(x => x.Price);
+                            basketTotalPrice = Model.Sum(x => x.TotalPrice);
                             basketTotalPriceWithKdv = basketTotalPrice + 20;
                             count++;
                             <tr>
                                 <td class="align-middle">@count</td>
-                                <td class="align-middle">@item.Product.Name</td>
+                                <td class="align-middle">@item.ProductName</td>
                                 <td class="align-middle">@item.Count</td>
                                 <td class="align-middle">@item.Price</td>
                                 <td class="align-middle">@item.TotalPrice</td>

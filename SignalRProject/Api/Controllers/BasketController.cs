@@ -5,6 +5,7 @@ using DtoLayer.BasketDto;
 using EntityLayer.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Controllers
 {
@@ -47,5 +48,34 @@ namespace Api.Controllers
             _basketService.TDelete(value);
             return Ok();
         }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> DecreaseProductCount(int id, [FromBody] int quantity)
+        {
+            using var _context = new SignalRContext();
+            var basketItem = await _context.Baskets.FindAsync(id);
+
+            if (basketItem == null)
+            {
+                return NotFound();
+            }
+
+            if (basketItem.Count > quantity)
+            {
+                // Ürünün miktarını azalt ve toplam fiyatı güncelle
+                basketItem.Count -= quantity;
+                basketItem.TotalPrice = basketItem.Count * basketItem.Price;
+                _context.Baskets.Update(basketItem);
+            }
+            else
+            {
+                // Ürün miktarı azaltılamıyorsa veya tamamen silinmesi gerekiyorsa
+                _context.Baskets.Remove(basketItem);
+            }
+
+            await _context.SaveChangesAsync();
+            return NoContent();
+        }
+
     }
 }

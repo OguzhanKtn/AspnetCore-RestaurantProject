@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
+using DataAccessLayer.Concrete;
 using DtoLayer.BasketDto;
 using EntityLayer.Entities;
 
@@ -14,7 +15,7 @@ namespace BusinessLayer.Concrete
             _basketDal = basketDal;
         }
 
-        public List<Basket> GetBasketByTableNumber(int id)
+        public List<ResultBasketDto> GetBasketByTableNumber(int id)
         {
             return _basketDal.GetBasketByTableNumber(id);
         }

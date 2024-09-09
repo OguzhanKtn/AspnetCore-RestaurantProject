@@ -13,7 +13,7 @@ namespace DtoLayer.BasketDto
         public decimal Price { get; set; }
         public int Count { get; set; }
         public decimal TotalPrice { get; set; }
-        public Product Product { get; set; }   
+        public string ProductName { get; set; }   
         public int TableID { get; set; }
         
     }

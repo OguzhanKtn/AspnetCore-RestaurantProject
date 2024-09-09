@@ -9,6 +9,7 @@ namespace Api.Mapping
         public BasketMapping()
         {
             CreateMap<Basket,CreateBasketDto>().ReverseMap();
+            CreateMap<Basket,ResultBasketDto>().ReverseMap();
         }
     }
 }

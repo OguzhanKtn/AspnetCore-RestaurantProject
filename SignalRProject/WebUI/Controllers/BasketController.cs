@@ -27,15 +27,36 @@ namespace WebUI.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Delete(int id)
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    var client = _httpClientFactory.CreateClient();
+        //    var response = await client.DeleteAsync($"https://localhost:44302/api/Basket/{id}");
+        //    if(response.IsSuccessStatusCode)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View();
+        //}
+
+        public async Task<IActionResult> Delete(int id, int quantity = 1)
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.DeleteAsync($"https://localhost:44302/api/Basket/{id}");
-            if(response.IsSuccessStatusCode)
+
+            // PATCH isteği hazırlama
+            var request = new HttpRequestMessage(HttpMethod.Patch, $"https://localhost:44302/api/Basket/{id}")
+            {
+                Content = new StringContent(quantity.ToString(), System.Text.Encoding.UTF8, "application/json")
+            };
+
+            var response = await client.SendAsync(request);
+
+            if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
+
             return View();
         }
+
     }
 }
