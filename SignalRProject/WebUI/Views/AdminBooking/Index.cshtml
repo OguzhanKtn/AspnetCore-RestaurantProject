@@ -5,55 +5,83 @@
 	int count = 0;
 }
 
+<script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+
 <div class="content">
 	<div class="container-fluid">
-		<h4 class="page-title">Tables</h4>
+
+		<script type="text/javascript">
+
+			$(document).ready(() => {
+
+				var connection = new signalR.HubConnectionBuilder().withUrl("https://localhost:44302/SignalRHub").build();
+				$("#connstatus").text(connection.state);
+				connection.start().then(() => {
+					$("#connstatus").text(connection.state);
+					setInterval(() => {
+						connection.invoke("GetBookingList");
+					}, 2000);
+				}).catch((err) => { console.log(err) });
+
+
+				connection.on("ReceiveBookingList", (value) => {
+					console.log(value);
+					let tablehtml = `<table class=table mt-3><thead>
+									 <tr>
+									 <th scope="col">#</th>
+									 <th scope="col">Name</th>
+									 <th scope="col">Phone</th>
+									 <th scope="col">Person Count</th>
+									 <th scope="col">Status</th>
+									 <th scope="col">Delete</th>
+									 <th scope="col">Update</th>
+									 <th scope="col">Activate</th>
+									 <th scope="col">Deactivate</th>
+									 </tr>
+									 </thead>
+									 <tbody>`
+					$.each(value, (index, item) => {
+						tablehtml += `<tr>
+									<th>${index+1}</th>
+									<td>${item.name}</td>
+									<td>${item.phone}</td>
+									<td>${item.personCount}</td>
+									<td>${item.description}</td>
+									<td><a href="/AdminBooking/Delete/${item.id}" class="btn btn-outline-danger">Sil</a></td>
+									<td><a href="/AdminBooking/Update/${item.id}" class="btn btn-outline-success">Güncelle</a></td>
+									<td><a href="/AdminBooking/BookingStatusApproved/${item.id}" class="btn btn-outline-info">Onayla</a></td>
+									<td><a href="/AdminBooking/BookingStatusCancelled/${item.id}" class="btn btn-outline-dark">İptal Et</a></td>
+									</tr>`
+					});
+					tablehtml += "</tbody></table>";
+					$("#bookingList").html(tablehtml);
+				});
+			});
+
+		</script>
+
+		<h4 class="page-title">Reservation Process</h4>
 		<div class="row">
 			<div class="col-md-12">
+
 				<div class="card">
 					<div class="card-header">
 						<div class="card-title">Reservation List</div>
 					</div>
 					<div class="card-body">
 						<div class="card-sub">
-							You can perform reservation-related operations below.
+							You can perform the processes about reservation below.
 						</div>
-						<table class="table mt-3">
-							<thead>
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Name</th>
-									<th scope="col">Phone</th>
-									<th scope="col">Mail</th>
-									<th scope="col">Person Count</th>
-									<th scope="col">Reservation Date</th>
-									<th scope="col">Delete</th>
-									<th scope="col">Update</th>
-								</tr>
-							</thead>
-							<tbody>
-								@foreach (var item in Model)
-								{
-									count++;
-									<tr>
-										<td>@count</td>
-										<td>@item.Name</td>
-										<td>@item.Phone</td>
-										<td>@item.Mail</td>
-										<td>@item.PersonCount</td>
-										<td>@item.Date.ToString("dd-MMM-yyyy")</td>
-										<td><a href="/AdminBooking/Delete/@item.Id" class="btn btn-outline-danger">Delete</a></td>
-										<td><a href="/AdminBooking/Update/@item.Id" class="btn btn-outline-success">Update</a></td>
-									</tr>
-								}
-							</tbody>
-						</table>
-						<a href="/AdminBooking/Create" class="btn btn-outline-primary">Add Reservation</a>
+						<div id="bookingList"></div>
+						<a href="/AdminBooking/Create/" class="btn btn-outline-primary">Yeni Rezervasyon Girişi</a>
+
 					</div>
 				</div>
-
 			</div>
-
 		</div>
 	</div>
 </div>

@@ -62,14 +62,12 @@ namespace Api.Controllers
 
             if (basketItem.Count > quantity)
             {
-                // Ürünün miktarını azalt ve toplam fiyatı güncelle
                 basketItem.Count -= quantity;
                 basketItem.TotalPrice = basketItem.Count * basketItem.Price;
                 _context.Baskets.Update(basketItem);
             }
             else
             {
-                // Ürün miktarı azaltılamıyorsa veya tamamen silinmesi gerekiyorsa
                 _context.Baskets.Remove(basketItem);
             }
 

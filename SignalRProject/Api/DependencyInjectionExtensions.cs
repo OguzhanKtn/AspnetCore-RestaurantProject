@@ -59,7 +59,10 @@ namespace Api
             services.AddScoped<IBasketService, BasketManager>();
             services.AddScoped<IBasketDal, EfBasketDal>();
 
-            return services;
+			services.AddScoped<INotificationService, NotificationManager>();
+			services.AddScoped<INotificationDal, EfNotificationDal>();
+
+			return services;
         }
     }
 }

@@ -55,5 +55,17 @@ namespace Api.Controllers
             _service.TUpdate(Booking);
             return Ok("Updated successfully!");
         }
-    }
+		[HttpGet("BookingStatusApproved/{id}")]
+		public IActionResult BookingStatusApproved(int id)
+		{
+			_service.BookingStatusApproved(id);
+			return Ok();
+		}
+		[HttpGet("BookingStatusCancelled/{id}")]
+		public IActionResult BookingStatusCancelled(int id)
+		{
+			_service.BookingStatusCancelled(id);
+			return Ok();
+		}
+	}
 }

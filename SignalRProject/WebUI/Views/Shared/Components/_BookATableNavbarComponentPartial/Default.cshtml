@@ -1,4 +1,8 @@
-﻿<div class="hero_area">
+﻿@{
+    Layout = null;
+}
+
+<div class="hero_area">
     <div class="bg-box">
         <img src="~/feane-1.0.0/images/hero-bg.jpg" alt="">
     </div>
@@ -13,21 +17,22 @@
                 </a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class=""> </span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav  mx-auto ">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="/Default/Index">Home <span class="sr-only">(current)</span> </a>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Default/Index">Home </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/Menu/Index">Menu</a>
+                            <a class="nav-link" href="/Menu/Index">Menu </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/About/Index">About</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/BookATable/Index">Book Table</a>
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/BookATable/Index">Book Table <span class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                     <div class="user_option">
@@ -93,7 +98,7 @@
                                 <i class="fa fa-search" aria-hidden="true"></i>
                             </button>
                         </form>
-                        <a href="/Menu/Index" class="order_online">
+                        <a href="" class="order_online">
                             Order Online
                         </a>
                     </div>
@@ -102,3 +107,4 @@
         </div>
     </header>
     <!-- end header section -->
+    </div>

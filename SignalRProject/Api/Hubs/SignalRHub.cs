@@ -11,16 +11,20 @@ namespace Api.Hubs
         private readonly IOrderService _orderService;
         private readonly IMoneyCaseService _moneyCaseService;
         private readonly ITableService _tableService;
-        public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, ITableService tableService)
-        {
-            _categoryService = categoryService;
-            _productService = productService;
-            _orderService = orderService;
-            _moneyCaseService = moneyCaseService;
-            _tableService = tableService;
-        }
+        private readonly IBookingService _bookingService;
+        private readonly INotificationService _notificationService;
+		public SignalRHub(ICategoryService categoryService, IProductService productService, IOrderService orderService, IMoneyCaseService moneyCaseService, ITableService tableService, IBookingService bookingService, INotificationService notificationService)
+		{
+			_categoryService = categoryService;
+			_productService = productService;
+			_orderService = orderService;
+			_moneyCaseService = moneyCaseService;
+			_tableService = tableService;
+			_bookingService = bookingService;
+			_notificationService = notificationService;
+		}
 
-        public async Task SendStatistic()
+		public async Task SendStatistic()
 		{
 			var value = _categoryService.GetCategoryCount();
 			await Clients.All.SendAsync("ReceiveCategoryCount",value);
@@ -81,6 +85,18 @@ namespace Api.Hubs
 
             var value3 = _tableService.TableCount();
             await Clients.All.SendAsync("TableCount", value3);
+        }
+
+        public async Task GetBookingList()
+        {
+            var value = _bookingService.TGetAll();
+            await Clients.All.SendAsync("ReceiveBookingList", value);
+        }
+
+        public async Task SendNotification()
+        {
+            var value = _notificationService.NotificationCountByStatusFalse();
+            await Clients.All.SendAsync("ReceiveNotificationCountByFalse", value);
         }
     }
 }

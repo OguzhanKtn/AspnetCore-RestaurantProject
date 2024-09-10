@@ -7,7 +7,7 @@ namespace DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server = .; initial catalog = SignalRDb; integrated security=true; trustservercertificate=true;");
+            optionsBuilder.UseSqlServer("Server = DESKTOP-S5STNHF; initial catalog = SignalRDb; integrated security=true; trustservercertificate=true;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,5 +45,6 @@ namespace DataAccessLayer.Concrete
         public DbSet<Table> Tables { get; set; }
         public DbSet<Slider> Sliders { get; set; }
         public DbSet<Basket> Baskets { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
     }
 }
