@@ -4,6 +4,7 @@ using DataAccessLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(SignalRContext))]
-    partial class SignalRContextModelSnapshot : ModelSnapshot
+    [Migration("20240911103646_mig_add_notificationIcon")]
+    partial class mig_add_notificationIcon
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,6 +101,7 @@ namespace DataAccessLayer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Mail")
@@ -117,12 +121,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Bookings", null, t =>
-                        {
-                            t.HasTrigger("trg_AfterInsertBookings");
-                        });
-
-                    b.HasAnnotation("SqlServer:UseSqlOutputClause", false);
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("EntityLayer.Entities.Category", b =>
@@ -317,8 +316,6 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("Orders", null, t =>
                         {
                             t.HasTrigger("SumMoneyCases");
-
-                            t.HasTrigger("trg_AfterInsertOrders");
                         });
 
                     b.HasAnnotation("SqlServer:UseSqlOutputClause", false);

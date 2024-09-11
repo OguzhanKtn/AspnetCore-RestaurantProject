@@ -16,9 +16,9 @@ namespace Api.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult Get() 
+		public IActionResult Get()
 		{
-			return Ok(_notificationService.TGetAll());
+			return Ok(_notificationService.GetAllNotifications());
 		}
 
 		[HttpGet("NotificationCountByStatusFalse")]
@@ -26,6 +26,11 @@ namespace Api.Controllers
 		{
 			return Ok(_notificationService.NotificationCountByStatusFalse());
 		}
-
+		[HttpGet("{id}")]
+		public IActionResult MakeNotificationStatusTrue(int id)
+		{
+			_notificationService.MakeNotificationStatusTrue(id);
+			return Ok();
+		}
 	}
 }

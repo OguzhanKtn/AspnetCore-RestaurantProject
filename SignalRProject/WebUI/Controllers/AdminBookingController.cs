@@ -14,9 +14,15 @@ namespace WebUI.Controllers
 			_httpClientFactory = httpClientFactory;
 		}
 
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(int id)
 		{
 			var client = _httpClientFactory.CreateClient();
+
+			if (id != 0)
+			{
+				await client.GetAsync($"https://localhost:44302/api/Notification/{id}");
+			}
+			
 			var response = await client.GetAsync("https://localhost:44302/api/Booking");
 			if (response.IsSuccessStatusCode)
 			{
@@ -24,6 +30,7 @@ namespace WebUI.Controllers
 				var values = JsonConvert.DeserializeObject<List<ResultBookingDto>>(jsonData);
 				return View(values);
 			}
+			
 			return View();
 		}
 

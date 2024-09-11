@@ -7,7 +7,7 @@ namespace DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server = DESKTOP-S5STNHF; initial catalog = SignalRDb; integrated security=true; trustservercertificate=true;");
+            optionsBuilder.UseSqlServer("Server = .; initial catalog = SignalRDb; integrated security=true; trustservercertificate=true;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -22,13 +22,18 @@ namespace DataAccessLayer.Concrete
             modelBuilder.Entity<Order>(entry =>
             {
                 entry.ToTable("Orders", tb => tb.HasTrigger("SumMoneyCases"));
+                entry.ToTable("Orders", tb => tb.HasTrigger("trg_AfterInsertOrders"));
             });
             modelBuilder.Entity<OrderDetail>(entry =>
             {
                 entry.ToTable("OrderDetails", tb => tb.HasTrigger("DecreaseOrderTotalPrice"));
                 entry.ToTable("OrderDetails", tb => tb.HasTrigger("IncreaseOrderTotalPrice"));
             });
-        }
+			modelBuilder.Entity<Booking>(entry =>
+			{
+				entry.ToTable("Bookings", tb => tb.HasTrigger("trg_AfterInsertBookings"));
+			});
+		}
 
         public DbSet<About> Abouts { get; set; }
         public DbSet<Booking> Bookings { get; set; }

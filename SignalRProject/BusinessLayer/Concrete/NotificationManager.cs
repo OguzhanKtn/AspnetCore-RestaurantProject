@@ -13,6 +13,16 @@ namespace BusinessLayer.Concrete
 			_notificationDal = notificationDal;
 		}
 
+		public List<Notification> GetAllNotifications()
+		{
+			return	_notificationDal.GetAllNotifications();
+		}
+
+		public void MakeNotificationStatusTrue(int id)
+		{
+			_notificationDal.MakeNotificationStatusTrue(id);
+		}
+
 		public int NotificationCountByStatusFalse()
 		{
 			return _notificationDal.NotificationCountByStatusFalse();

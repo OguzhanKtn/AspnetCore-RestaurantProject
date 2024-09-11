@@ -11,6 +11,21 @@ namespace DataAccessLayer.EntityFramework
 		{
 		}
 
+		public List<Notification> GetAllNotifications()
+		{
+			using var context = new SignalRContext();
+			var values = context.Notifications.Where(x => x.Status == false).ToList();
+			return values;
+		}
+
+		public void MakeNotificationStatusTrue(int id)
+		{
+			using var context = new SignalRContext();
+			var notification = context.Notifications.Find(id);
+			notification.Status = true;
+			context.SaveChanges();
+		}
+
 		public int NotificationCountByStatusFalse()
 		{
 			using var context = new SignalRContext();
