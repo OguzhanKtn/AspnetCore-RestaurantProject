@@ -1,5 +1,4 @@
-﻿@model List<ResultNotificationDto>
-
+﻿
 <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -20,8 +19,28 @@
 
 			connection.on("ReceiveNotificationCountByFalse", (value) => {
 				$("#notificationcount").text(value);
+				$("#notificationcountText").text(value);
+			})
+			connection.on("ReceiveNotificationListByFalse", (value) => {
+				$('#notificationlist').empty();
+				for (var i = 0; i < value.length; i++) {
+					$('#notificationlist').append(
+						`
+					<a href="/Admin${value[i].type}/Index/${value[i].id}">
+						<div class="${value[i].icon}"> <i class="la la-user-plus"></i> </div>
+							<div class="notif-content">
+								<span class="block">
+									${value[i].description }
+								</span>
+							<span class="time">${new Date(value[i].date).toLocaleDateString()}</span>
+						</div>
+					</a>
+						`
+					)
+				}
 			})
 		})
+
 	</script>
 	<div class="logo-header">
 		<a href="index.html" class="logo">
@@ -63,22 +82,10 @@
 					</a>
 					<ul class="dropdown-menu notif-box" aria-labelledby="navbarDropdown">
 						<li>
-							<div class="dropdown-title">You have @Model.Count new notification</div>
+							<div class="dropdown-title">You have <span class="text-black" id="notificationcountText"></span> new notification</div>
 						</li>
 						<li>
-							<div class="notif-center">
-								@foreach(var item in Model)
-								{
-									<a href="@($"/Admin{item.Type}/Index/{item.Id}")">
-										<div class="@item.Icon"> <i class="la la-user-plus"></i> </div>
-										<div class="notif-content">
-											<span class="block">
-												@item.Description
-											</span>
-											<span class="time">@item.Date.ToShortDateString()</span>
-										</div>
-									</a>
-								}			
+							<div class="notif-center" id="notificationlist">
 							</div>
 						</li>
 						<li>
