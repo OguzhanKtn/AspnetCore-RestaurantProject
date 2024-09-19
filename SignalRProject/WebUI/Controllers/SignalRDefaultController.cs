@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebUI.Controllers
 {
-	public class SignalRDefaultController : Controller
+    [AllowAnonymous]
+    public class SignalRDefaultController : Controller
 	{
 		public IActionResult Index()
 		{

@@ -1,0 +1,49 @@
+﻿@model CreateMessageDto
+
+@{
+    Layout = null;
+}
+
+@await Component.InvokeAsync("_UILayoutHeadComponentPartial")
+
+<body class="sub_page">
+    @await Component.InvokeAsync("_MessageNavbarComponentPartial")
+    <section class="book_section layout_padding">
+        <div class="container">
+            <div class="heading_container">
+                <h2>
+                    Contact Us
+                </h2>
+            </div>
+                <div class="col-md-12">
+                    <div class="form_container">
+                        <form method="post">
+                            <div>
+                                <input type="text" class="form-control" placeholder="NameSurname" asp-for="NameSurname" />
+                            </div>
+                            <div>
+                                <input type="text" class="form-control" placeholder="Phone Number" asp-for="Phone" />
+                            </div>
+                            <div>
+                                <input type="email" class="form-control" placeholder="Your Email" asp-for="Mail" />
+                            </div>
+                            <div>
+                                <input type="text" class="form-control" placeholder="Subject" asp-for="Subject" />
+                            </div>
+                            <div>
+                                <textarea style="height:100px" type="text" class="form-control" placeholder="Your Message" asp-for="MessageContent"></textarea>
+                            </div>
+                            <div class="btn_box">
+                                <button>
+                                    Send
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+        </div>
+    </section>
+</body>
+
+@await Component.InvokeAsync("_UILayoutFooterComponentPartial")
+@await Component.InvokeAsync("_UILayoutScriptComponentPartial")
