@@ -1241,6 +1241,11 @@ label {
   height: 0;
   width: 0;
 }
+.scrollbar-inner {
+    max-height: 100vh; /* Sayfa yüksekliði kadar alan ayýr */
+    overflow-y: auto; /* Yatay kaydýrmayý otomatik yap */
+}
+
 
 .scrollbar-inner > .scroll-element {
   border: none;
@@ -2059,6 +2064,11 @@ body {
   z-index: 1001;
   display: inline-block;
 }
+.sidebar-wrapper {
+    height: 100vh; /* Yüksekliði tam sayfa kadar ayarla */
+    overflow-y: auto; /* Kaydýrmayý etkinleþtir */
+}
+
 .main-header .logo-header a.logo {
   color: #575962;
 }
