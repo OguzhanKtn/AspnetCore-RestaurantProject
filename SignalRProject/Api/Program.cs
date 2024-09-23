@@ -1,5 +1,8 @@
 using Api;
 using Api.Hubs;
+using DataAccessLayer.Concrete;
+using EntityLayer.Entities;
+using Microsoft.AspNetCore.Identity;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +12,7 @@ builder.Services.AddApplicationServices();
 
 builder.Services.AddControllersWithViews()
     .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<SignalRContext>().AddDefaultTokenProviders();
 
 builder.Services.AddCors(opt =>
 {
@@ -32,6 +36,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EntityLayer.Entities
+﻿namespace EntityLayer.Entities
 {
     public class Basket
     {
@@ -16,5 +10,7 @@ namespace EntityLayer.Entities
         public Product Product { get; set; }
         public int TableID { get; set; }
         public Table Table { get; set; }
+        public int UserID { get; set; }
+        public AppUser User { get; set; }
     }
 }

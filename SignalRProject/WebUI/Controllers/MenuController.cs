@@ -1,6 +1,8 @@
 ﻿using DtoLayer.BasketDto;
 using DtoLayer.ProductDto;
+using EntityLayer.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
@@ -11,10 +13,12 @@ namespace WebUI.Controllers
     public class MenuController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-
-        public MenuController(IHttpClientFactory httpClientFactory)
+        private readonly UserManager<AppUser> _userManager;
+        private readonly ILogger<MenuController> _logger;
+        public MenuController(IHttpClientFactory httpClientFactory, UserManager<AppUser> userManager)
         {
             _httpClientFactory = httpClientFactory;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
@@ -33,19 +37,37 @@ namespace WebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddBasket(int id)
         {
-            CreateBasketDto basketDto = new CreateBasketDto();
-            basketDto.ProductID = id;
-            var client = _httpClientFactory.CreateClient();
-            var jsonData = JsonConvert.SerializeObject(basketDto);
-            StringContent content = new StringContent(jsonData,Encoding.UTF8,"application/json");
-
-            var response = await client.PostAsync("https://localhost:44302/api/Basket", content);
-            if (response.IsSuccessStatusCode)
+            try
             {
-                return RedirectToAction("Index");
+                if (!User.Identity.IsAuthenticated)
+                {
+                    return RedirectToAction("Index", "Login");
+                }
+                var userId = _userManager.GetUserId(User);
+                CreateBasketDto basketDto = new CreateBasketDto
+                {
+                    ProductID = id,
+                    UserID = Convert.ToInt32(userId)
+                };
+
+                var client = _httpClientFactory.CreateClient();
+                var jsonData = JsonConvert.SerializeObject(basketDto);
+                StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync("https://localhost:44302/api/Basket", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    return Ok(new { success = true });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Sepet ekleme işleminde hata oluştu");
+                return StatusCode(500, "Sunucu hatası");
             }
 
-            return View();
+            return Json(id);
         }
+
     }
 }

@@ -1,24 +1,29 @@
 ﻿using DtoLayer.BasketDto;
+using EntityLayer.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace WebUI.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     public class BasketController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
-
-        public BasketController(IHttpClientFactory httpClientFactory)
+        private readonly UserManager<AppUser> _userManager;
+        public BasketController(IHttpClientFactory httpClientFactory, UserManager<AppUser> userManager)
         {
             _httpClientFactory = httpClientFactory;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://localhost:44302/api/Basket/4");
+            int userId =Convert.ToInt32(_userManager.GetUserId(User));
+  
+            var response = await client.GetAsync($"https://localhost:44302/api/Basket/{userId}");
 
             if(response.IsSuccessStatusCode)
             {

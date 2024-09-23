@@ -16,6 +16,9 @@ builder.Services.AddControllersWithViews(opt =>
 builder.Services.ConfigureApplicationCookie(opts =>
 {
     opts.LoginPath = "/Login/Index";
+    opts.LogoutPath = "/Login/LogOut";
+    opts.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    opts.SlidingExpiration = true;
 });
 builder.Services.AddHttpClient();
 var app = builder.Build();
@@ -27,7 +30,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.UseDeveloperExceptionPage();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
