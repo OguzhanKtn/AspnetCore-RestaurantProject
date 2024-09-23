@@ -1,4 +1,4 @@
-﻿@model List<ResultProductDto>
+﻿@model List<ResultProductWithCategory>
 @{
     Layout = null;
 }
@@ -22,11 +22,13 @@
                 </h2>
             </div>
 
+            @await Component.InvokeAsync("_MenuCategoryFilterComponentPartial")
+
             <div class="filters-content">
                 <div class="row grid">
                     @foreach (var item in Model)
                     {
-                        <div class="col-sm-6 col-lg-4 all">
+                        <div class="col-sm-6 col-lg-4 all @item.CategoryName">
                             <div class="box">
                                 <div>
                                     <div class="img-box">
@@ -129,7 +131,9 @@
                 success: function (response) {
                     if (response.success) {
                         swal("Seçilen Ürün ID:" + id, "Seçtiğiniz Ürün Sepete Eklendi!", "success");
-                    } 
+                    } else {
+                        window.location.href = "/Login/Index";
+                    }
                 },
                 error: function (xhr, status, error) {
                     console.log("Hata oluştu: " + error);

@@ -1,4 +1,4 @@
-﻿@model List<ResultProductDto>
+﻿@model List<ResultProductWithCategory>
 
 <section class="food_section layout_padding-bottom">
     <div class="container">
@@ -8,11 +8,13 @@
             </h2>
         </div>
 
+        @await Component.InvokeAsync("_MenuCategoryFilterComponentPartial")
+
         <div class="filters-content">
             <div class="row grid">
                 @foreach(var item in Model)
                 {
-                    <div class="col-sm-6 col-lg-4 all">
+                    <div class="col-sm-6 col-lg-4 all @item.CategoryName">
                     <div class="box">
                         <div>
                             <div class="img-box">
@@ -29,7 +31,7 @@
                                     <h6>
                                             @item.Price₺
                                     </h6>
-                                        <a href="">
+                                        <a href="#" onclick="showproductid(@item.Id)">
                                             <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
                                             <g>
                                             <g>
@@ -100,3 +102,26 @@
         </div>
     </div>
 </section>
+
+<script>
+    function showproductid(value) {
+        var id = value;
+        $.ajax({
+            type: 'post',
+            data: { item: id },
+            url: "/Menu/AddBasket/" + id,
+            contentType: 'json',
+            success: function (response) {
+                if (response.success) {
+                    swal("Seçilen Ürün ID:" + id, "Seçtiğiniz Ürün Sepete Eklendi!", "success");
+                } else {
+                    window.location.href = "/Login/Index";
+                }
+            },
+            error: function (xhr, status, error) {
+                console.log("Hata oluştu: " + error);
+            }
+        })
+    }
+</script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
