@@ -2,7 +2,7 @@
 using BusinessLayer.Abstract;
 using DtoLayer.BookingDto;
 using EntityLayer.Entities;
-using Microsoft.AspNetCore.Http;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
@@ -13,10 +13,12 @@ namespace Api.Controllers
     {
         private readonly IBookingService _service;
         private readonly IMapper _mapper;
-        public BookingController(IBookingService service, IMapper mapper)
+        private readonly IValidator<CreateBookingDto> _validator;
+        public BookingController(IBookingService service, IMapper mapper, IValidator<CreateBookingDto> validator)
         {
             _service = service;
             _mapper = mapper;
+            _validator = validator;
         }
 
         [HttpGet]
@@ -35,6 +37,11 @@ namespace Api.Controllers
 		[HttpPost]
         public IActionResult Create(CreateBookingDto BookingDto)
         {
+            var validationResult = _validator.Validate(BookingDto);
+            if(!validationResult.IsValid)
+            {
+                return BadRequest(validationResult.Errors);
+            }
             var Booking = _mapper.Map<Booking>(BookingDto);
             _service.TAdd(Booking);
             return Ok("Added succesfully!");
